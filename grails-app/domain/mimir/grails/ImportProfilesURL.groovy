@@ -2,6 +2,10 @@ package mimir.grails
 
 class ImportProfilesURL {
 
-    static constraints = {
+    String url
+    Integer count
+
+    static mapping = {
+        count defaultValue: '0'
     }
 }
