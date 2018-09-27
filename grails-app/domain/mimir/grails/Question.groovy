@@ -16,7 +16,7 @@ class Question {
     }
 
     static mapping = {
-        type defaultValue: 'NORMAL'
+        type defaultValue: "'NORMAL'"
         attempts defaultValue: '0'
         dateCreated defaultValue: 'CURRENT_TIMESTAMP'
     }

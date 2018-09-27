@@ -23,6 +23,6 @@ class Profile {
     }
 
     static mapping = {
-        type defaultValue: 'people'
+        type defaultValue: "'people'"
     }
 }

@@ -20,8 +20,7 @@ class Picture {
     ]
 
     static mapping = {
-        type defaultValue: 'image'
-        mimeType defaultValue: 'image/jpeg'
+        type defaultValue: "'image'"
         url sqlType: 'text'
     }
 
