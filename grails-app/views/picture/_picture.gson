@@ -1,0 +1,7 @@
+import mimir.grails.Picture
+
+model {
+	Picture picture
+}
+
+json g.render(picture, [resolveTemplate: false])

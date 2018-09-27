@@ -1,0 +1,7 @@
+import mimir.grails.SocialLink
+
+model {
+	SocialLink socialLink
+}
+
+json tmpl.socialLink(socialLink)

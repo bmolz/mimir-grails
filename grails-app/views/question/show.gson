@@ -1,0 +1,7 @@
+import mimir.grails.Question
+
+model {
+	Question question
+}
+
+json tmpl.question(question)

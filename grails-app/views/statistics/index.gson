@@ -1,0 +1,8 @@
+import mimir.grails.Statistics
+
+model {
+	Iterable<Statistics> statisticsList
+}
+
+json tmpl.statistics(statisticsList ?: [])
+

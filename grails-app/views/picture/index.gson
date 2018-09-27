@@ -1,0 +1,8 @@
+import mimir.grails.Picture
+
+model {
+	Iterable<Picture> pictureList
+}
+
+json tmpl.picture(pictureList ?: [])
+

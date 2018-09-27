@@ -1,0 +1,7 @@
+import mimir.grails.ImportProfilesURL
+
+model {
+	ImportProfilesURL importProfilesURL
+}
+
+json tmpl.importProfilesURL(importProfilesURL)

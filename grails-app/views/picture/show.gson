@@ -1,0 +1,7 @@
+import mimir.grails.Picture
+
+model {
+	Picture picture
+}
+
+json tmpl.picture(picture)

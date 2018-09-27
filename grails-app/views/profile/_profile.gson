@@ -1,0 +1,7 @@
+import mimir.grails.Profile
+
+model {
+	Profile profile
+}
+
+json g.render(profile, [resolveTemplate: false])

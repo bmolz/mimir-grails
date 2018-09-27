@@ -1,0 +1,8 @@
+import mimir.grails.Question
+
+model {
+	Iterable<Question> questionList
+}
+
+json tmpl.question(questionList ?: [])
+

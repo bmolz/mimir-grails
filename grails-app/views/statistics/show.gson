@@ -1,0 +1,7 @@
+import mimir.grails.Statistics
+
+model {
+	Statistics statistics
+}
+
+json tmpl.statistics(statistics)

@@ -1,0 +1,8 @@
+import mimir.grails.SocialLink
+
+model {
+	Iterable<SocialLink> socialLinkList
+}
+
+json tmpl.socialLink(socialLinkList ?: [])
+
