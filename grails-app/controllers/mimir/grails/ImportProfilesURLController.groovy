@@ -1,18 +1,20 @@
 package mimir.grails
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
+@Secured(['ROLE_ADMIN'])
 class ImportProfilesURLController {
 
     ImportProfilesURLService importProfilesURLService
+    ImportService importService
 
-    static responseFormats = ['json', 'xml']
+    static responseFormats = ['json']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond importProfilesURLService.list(params), model:[importProfilesURLCount: importProfilesURLService.count()]
+    def index() {
+        respond importProfilesURLService.list(), model:[importProfilesURLCount: importProfilesURLService.count()]
     }
 
     def show(Long id) {
@@ -25,6 +27,8 @@ class ImportProfilesURLController {
             return
         }
 
+        importProfilesURL.count = importService.importProfiles(importProfilesURL.url.toURL().text)
+
         try {
             importProfilesURLService.save(importProfilesURL)
         } catch (ValidationException e) {
@@ -33,32 +37,5 @@ class ImportProfilesURLController {
         }
 
         respond importProfilesURL, [status: CREATED, view:"show"]
-    }
-
-    def update(ImportProfilesURL importProfilesURL) {
-        if (importProfilesURL == null) {
-            render status: NOT_FOUND
-            return
-        }
-
-        try {
-            importProfilesURLService.save(importProfilesURL)
-        } catch (ValidationException e) {
-            respond importProfilesURL.errors, view:'edit'
-            return
-        }
-
-        respond importProfilesURL, [status: OK, view:"show"]
-    }
-
-    def delete(Long id) {
-        if (id == null) {
-            render status: NOT_FOUND
-            return
-        }
-
-        importProfilesURLService.delete(id)
-
-        render status: NO_CONTENT
     }
 }

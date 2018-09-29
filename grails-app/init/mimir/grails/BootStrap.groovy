@@ -2,6 +2,8 @@ package mimir.grails
 
 class BootStrap {
 
+    def importService
+
     def init = { servletContext ->
         def adminRole = Role.findByAuthority('ROLE_ADMIN') ?: new Role(authority: 'ROLE_ADMIN').save()
         def userRole = Role.findByAuthority('ROLE_USER') ?: new Role(authority: 'ROLE_USER').save()
@@ -17,6 +19,10 @@ class BootStrap {
             it.clear()
         }
 
+        if(!ImportProfilesURL.get(1)) {
+            println 'Importing Profiles...'
+            new ImportProfilesURL(url: "https://tinyurl.com/ybss7rrb", count: importService.importProfiles("https://tinyurl.com/ybss7rrb".toURL().text)).save()
+        }
     }
     def destroy = {
     }

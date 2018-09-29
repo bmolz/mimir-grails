@@ -3,12 +3,18 @@ package mimir.grails
 class UrlMappings {
 
     static mappings = {
-        delete "/$controller/$id(.$format)?"(action:"delete")
-        get "/$controller(.$format)?"(action:"index")
-        get "/$controller/$id(.$format)?"(action:"show")
-        post "/$controller(.$format)?"(action:"save")
-        put "/$controller/$id(.$format)?"(action:"update")
-        patch "/$controller/$id(.$format)?"(action:"patch")
+
+        "/profile"(resources:'profile') {
+            "/social"(resources:'socialLink')
+            "/picture"(resources:'picture')
+        }
+
+        "/question"(resource:'question') {
+            "/choices"(resources:'choices')
+        }
+
+        "/statistics"(resource:'statistics')
+        "/import"(resource:'importProfilesURL')
 
         "/"(controller: 'application', action:'index')
         "500"(view: '/error')

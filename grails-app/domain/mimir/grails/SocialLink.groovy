@@ -5,9 +5,14 @@ class SocialLink {
     String callToAction
     String url
 
+    static belongsTo = [
+        profile:Profile
+    ]
+
     static constraints = {
+        type blank: true, nullable: true
         callToAction blank: true, nullable: true
-        url url: true
+        url blank: true, nullable: true
     }
 
     static mapping = {
