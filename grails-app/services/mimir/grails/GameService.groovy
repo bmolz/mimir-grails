@@ -9,15 +9,20 @@ import java.util.concurrent.ThreadLocalRandom
 class GameService {
 
     def generateQuestion(Question q) {
-        if(q?.choices) q.choices.clear()
-        def rAns = ThreadLocalRandom.current().nextInt(1, Profile.count+1)
-        q.answer = Profile.get(rAns)
-        def rChoices = [rAns] as Set
-        while (rChoices.size() < 6) {
-            rChoices << ThreadLocalRandom.current().nextInt(1, Profile.count+1)
+        def profiles = Profile.withCriteria(){
+            if(q.type=='MAT') ilike('firstName', "%Mat%")
         }
-        Profile.getAll(rChoices).each{
-            q.addToChoices(it)
+        if(q?.choices) q.choices.clear()
+        def rAns = ThreadLocalRandom.current().nextInt(0, profiles.size)
+        q.answer = profiles.get(rAns)
+        def rChoices = [rAns] as Set
+        def n = 0
+        while (rChoices.size() < 6 && n < 100) {
+            rChoices << ThreadLocalRandom.current().nextInt(0, profiles.size)
+            n++
+        }
+        rChoices.each{
+            q.addToChoices(profiles.get(it))
         }
         q.save()
     }

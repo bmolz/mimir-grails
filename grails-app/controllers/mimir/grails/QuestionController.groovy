@@ -27,7 +27,8 @@ class QuestionController {
 
     // POST new question
     def save() {
-        def type = request.JSON?.type ?: 'NORMAL'
+        def type = params?.type ?: 'NORMAL'
+        type = request.JSON?.type ?: type
         springSecurityService.currentUser?.question?.delete()
         new Question(
             user: springSecurityService.currentUser,

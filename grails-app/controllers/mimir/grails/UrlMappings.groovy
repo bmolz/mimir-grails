@@ -12,7 +12,7 @@ class UrlMappings {
         }
 
         "/api/question"(controller:'question', action:'show', method:'GET')
-        "/api/question"(controller:'question', action:'save', method:'POST')
+        "/api/question(.$format)?"(controller:'question', action:'save', method:'POST')
         "/api/question/answer/$id"(controller:'question', action:'answer', id:"$id", method:'POST')
 
         "/api/leaderboard(.$format)?"(resources:'statistics')
