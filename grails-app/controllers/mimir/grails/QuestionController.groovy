@@ -11,21 +11,27 @@ class QuestionController {
     QuestionService questionService
     def springSecurityService
 
-    static responseFormats = ['json', 'xml']
+    static responseFormats = ['json']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond questionService.list(params), model:[questionCount: questionService.count()]
+    def index() {
+        println 'Question Index'
+        //forward(action: "show", id: question.id)
     }
 
     def show() {
-        def question = Question.findByUser(springSecurityService.getCurrentUser)
-        if(!question) {
-            println 'Create Question'
+//        def question = Question.findByUser(springSecurityService.currentUser)
+        def question = Question.findByUser(springSecurityService.currentUser)
+        if(!question){
+            new Question(
+                user: springSecurityService.currentUser,
+                type: 'NORMAL'
+            ).save(flush:true, failOnError: true)
+            question = Question.findByUser(springSecurityService.currentUser)
         }
+        println question
 
-        respond questionService.get(id)
+        respond question
     }
 
     def save(Question question) {

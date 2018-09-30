@@ -1,7 +1,6 @@
 package mimir.grails
 
 class Question {
-    User user
     String type
     Integer attempts
     Profile answer
@@ -11,8 +10,14 @@ class Question {
         choices: Profile
     ]
 
+    static belongsTo = [
+        user:User
+    ]
+
     static constraints = {
-        type inList: ['NORMAL', 'REVERSE', 'MAT']
+        type nullable: true, inList: ['NORMAL', 'REVERSE', 'MAT']
+        attempts nullable: true
+        answer nullable: true
     }
 
     static mapping = {

@@ -1,13 +1,16 @@
 package mimir.grails
 
 class Statistics {
-    User user
     Integer correct
     Integer wrong
     Integer total
     Integer totalTimeSeconds
     Integer averageTimeSeconds
     Double fractionCorrect
+
+    static belongsTo = [
+        user:User
+    ]
 
     static mapping = {
         correct defaultValue: '0'
