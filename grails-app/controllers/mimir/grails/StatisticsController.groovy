@@ -1,5 +1,6 @@
 package mimir.grails
 
+import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
 
@@ -7,7 +8,6 @@ class StatisticsController {
 
     StatisticsService statisticsService
 
-    static responseFormats = ['json', 'xml']
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
     def index(Integer max) {
@@ -19,6 +19,7 @@ class StatisticsController {
         respond statisticsService.get(id)
     }
 
+    @Secured(['ROLE_ADMIN'])
     def save(Statistics statistics) {
         if (statistics == null) {
             render status: NOT_FOUND
@@ -35,6 +36,7 @@ class StatisticsController {
         respond statistics, [status: CREATED, view:"show"]
     }
 
+    @Secured(['ROLE_ADMIN'])
     def update(Statistics statistics) {
         if (statistics == null) {
             render status: NOT_FOUND
@@ -51,6 +53,7 @@ class StatisticsController {
         respond statistics, [status: OK, view:"show"]
     }
 
+    @Secured(['ROLE_ADMIN'])
     def delete(Long id) {
         if (id == null) {
             render status: NOT_FOUND

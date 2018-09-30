@@ -8,13 +8,10 @@ class Profile {
     String firstName
     String lastName
     String bio
+    Picture headshot
 
     static hasMany = [
         socialLinks: SocialLink
-    ]
-
-    static hasOne = [
-        headshot: Picture
     ]
 
     static constraints = {

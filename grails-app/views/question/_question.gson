@@ -4,4 +4,38 @@ model {
 	Question question
 }
 
-json g.render(question, [resolveTemplate: false])
+
+if(question.type == 'REVERSE') {
+    json {
+        face question.answer.collect{
+            [
+                type: question.answer.headshot.type,
+                mimeType: question.answer.headshot.mimeType,
+                url: question.answer.headshot.url,
+                height: question.answer.headshot.height,
+                width: question.answer.headshot.width
+            ]
+        }
+        choices g.render(question?.choices?.collect {
+                [
+                    id: it.id,
+                    name: "${it?.firstName} ${it?.lastName}"
+                ]
+            }
+        )
+    }
+} else { //Normal or Matt
+    json {
+        name "${question?.answer?.firstName} ${question?.answer?.lastName}"
+        choices g.render(question?.choices?.collect{
+            [
+                id: it.id,
+                type: it.headshot.type,
+                mimeType: it.headshot.mimeType,
+                url: it.headshot.url,
+                height: it.headshot.height,
+                width: it.headshot.width
+            ]
+        })
+    }
+}

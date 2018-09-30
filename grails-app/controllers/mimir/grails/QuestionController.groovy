@@ -3,78 +3,56 @@ package mimir.grails
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
+import grails.converters.JSON
 
 
 @Secured(['ROLE_ADMIN', 'ROLE_USER'])
 class QuestionController {
 
     QuestionService questionService
+    GameService gameService
     def springSecurityService
 
-    static responseFormats = ['json']
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [show: "GET", save: "POST", answer: "POST"]
 
-    def index() {
-        println 'Question Index'
-        //forward(action: "show", id: question.id)
-    }
-
+    // GET question
     def show() {
-//        def question = Question.findByUser(springSecurityService.currentUser)
-        def question = Question.findByUser(springSecurityService.currentUser)
-        if(!question){
-            new Question(
-                user: springSecurityService.currentUser,
-                type: 'NORMAL'
-            ).save(flush:true, failOnError: true)
-            question = Question.findByUser(springSecurityService.currentUser)
+        def question = springSecurityService.currentUser?.question
+        if (!question) {
+            forward(action: 'save')
+        } else {
+            respond question, [status: OK]
         }
-        println question
-
-        respond question
     }
 
-    def save(Question question) {
-        if (question == null) {
-            render status: NOT_FOUND
-            return
-        }
+    // POST new question
+    def save() {
+        def type = request.JSON?.type ?: 'NORMAL'
+        springSecurityService.currentUser?.question?.delete()
+        new Question(
+            user: springSecurityService.currentUser,
+            type: type,
+            attempts: 0
+        ).save(flush: true, failOnError: true)
+        Question question = springSecurityService.currentUser?.question
+        gameService.generateQuestion(question)
+        respond question, [status: CREATED, view: "show"]
 
-        try {
-            questionService.save(question)
-        } catch (ValidationException e) {
-            respond question.errors, view:'create'
-            return
-        }
-
-        respond question, [status: CREATED, view:"show"]
     }
 
-    @Secured(['ROLE_ADMIN'])
-    def update(Question question) {
-        if (question == null) {
+    // POST answer
+    def answer() {
+        Question question = springSecurityService.currentUser?.question
+        if(question?.answer?.id?.toString() == params?.id ) {
+            gameService.win(question, springSecurityService.currentUser)
+            def res = [message: true]
+            render res as JSON
+        } else if(question?.choices*.id.toString().contains(params?.id)){
+            gameService.lose(question, springSecurityService.currentUser)
+            def res = [message: false]
+            render res as JSON
+        } else {
             render status: NOT_FOUND
-            return
         }
-
-        try {
-            questionService.save(question)
-        } catch (ValidationException e) {
-            respond question.errors, view:'edit'
-            return
-        }
-
-        respond question, [status: OK, view:"show"]
-    }
-
-    def delete(Long id) {
-        if (id == null) {
-            render status: NOT_FOUND
-            return
-        }
-
-        questionService.delete(id)
-
-        render status: NO_CONTENT
     }
 }

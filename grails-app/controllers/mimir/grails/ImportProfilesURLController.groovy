@@ -10,8 +10,7 @@ class ImportProfilesURLController {
     ImportProfilesURLService importProfilesURLService
     ImportService importService
 
-    static responseFormats = ['json']
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
+    static allowedMethods = [save: "POST"]
 
     def index() {
         respond importProfilesURLService.list(), model:[importProfilesURLCount: importProfilesURLService.count()]

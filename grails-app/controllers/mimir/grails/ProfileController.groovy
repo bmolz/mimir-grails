@@ -12,11 +12,8 @@ class ProfileController {
     ProfileService profileService
     SpringSecurityService springSecurityService
 
-    static responseFormats = ['json']
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-
     @Secured(['ROLE_ADMIN', 'ROLE_USER'])
-    def index(Integer max) {
+    def index() {
         respond profileService.list(params), model:[profileCount: profileService.count()]
     }
 

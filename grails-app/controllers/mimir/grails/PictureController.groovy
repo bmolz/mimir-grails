@@ -10,9 +10,6 @@ class PictureController {
 
     PictureService pictureService
 
-    static responseFormats = ['json']
-    static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
-
     def index() {
         forward(action: "show", id: Picture.findByProfile(Profile.get(params.profileId)).id)
     }

@@ -4,4 +4,12 @@ model {
 	Statistics statistics
 }
 
-json g.render(statistics, [resolveTemplate: false])
+json {
+    name statistics?.user?.username
+    correct statistics?.correct
+    wrong statistics?.wrong
+    total statistics?.total
+    averageTimeSeconds statistics?.averageTimeSeconds
+    totalTimeSeconds statistics?.totalTimeSeconds
+    fractionCorrect statistics?.fractionCorrect
+}

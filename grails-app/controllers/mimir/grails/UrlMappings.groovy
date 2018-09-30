@@ -11,11 +11,11 @@ class UrlMappings {
             "/picture"(resources:'picture')
         }
 
-        "/api/question"(resource:'question') {
-//            "/choices"(resources:'choices')
-        }
+        "/api/question"(controller:'question', action:'show', method:'GET')
+        "/api/question"(controller:'question', action:'save', method:'POST')
+        "/api/question/answer/$id"(controller:'question', action:'answer', id:"$id", method:'POST')
 
-        "/api/statistics"(resource:'statistics')
+        "/api/leaderboard"(resources:'statistics')
         "/api/import"(resource:'importProfilesURL')
         "/login/auth/$id"(controller:'profile', action:'login', id:"$id")
 
