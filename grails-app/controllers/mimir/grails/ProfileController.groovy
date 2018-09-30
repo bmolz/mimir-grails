@@ -14,7 +14,23 @@ class ProfileController {
 
     @Secured(['ROLE_ADMIN', 'ROLE_USER'])
     def index() {
-        respond profileService.list(params), model:[profileCount: profileService.count()]
+        def max = Math.min(params?.max ?: 200, 500)
+        def offset = params?.offset ?: 0
+        def sortBy = ['firstName', 'lastName', 'jobTitle', 'slug'].contains(params?.sortBy) ? params.sortBy : 'firstName'
+        def orderBy = ['desc', 'asc'].contains(params?.orderBy) ? params.orderBy : 'asc'
+
+        def profiles = Profile.withCriteria(max: max, offset: offset){
+            if(params.search) {
+                or {
+                    ilike('firstName', "%${params.search}%")
+                    ilike('lastName', "%${params.search}%")
+                    ilike('bio', "%${params.search}%")
+                    ilike('jobTitle', "%${params.search}%")
+                }
+            }
+            order(sortBy, orderBy)
+        }
+        respond profiles, model:[count: profiles.size(), max: max, offset: offset]
     }
 
     @Secured(['ROLE_ADMIN', 'ROLE_USER'])

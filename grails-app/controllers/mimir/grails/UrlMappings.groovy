@@ -6,7 +6,7 @@ class UrlMappings {
 
         "/$controller/$action?/$id?(.$format)?"{}
 
-        "/api/profile"(resources:'profile') {
+        "/api/profile(.$format)?"(resources:'profile') {
             "/social"(resources:'socialLink')
             "/picture"(resources:'picture')
         }
@@ -15,7 +15,7 @@ class UrlMappings {
         "/api/question"(controller:'question', action:'save', method:'POST')
         "/api/question/answer/$id"(controller:'question', action:'answer', id:"$id", method:'POST')
 
-        "/api/leaderboard"(resources:'statistics')
+        "/api/leaderboard(.$format)?"(resources:'statistics')
         "/api/import"(resource:'importProfilesURL')
         "/login/auth/$id"(controller:'profile', action:'login', id:"$id")
 

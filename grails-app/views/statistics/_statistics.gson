@@ -5,6 +5,7 @@ model {
 }
 
 json {
+    statistics_id statistics.id
     name statistics?.user?.username
     correct statistics?.correct
     wrong statistics?.wrong

@@ -1,5 +1,6 @@
 package mimir.grails
 
+import grails.plugin.springsecurity.SpringSecurityService
 import grails.plugin.springsecurity.annotation.Secured
 import grails.validation.ValidationException
 import static org.springframework.http.HttpStatus.*
@@ -7,16 +8,23 @@ import static org.springframework.http.HttpStatus.*
 class StatisticsController {
 
     StatisticsService statisticsService
+    SpringSecurityService springSecurityService
 
     static allowedMethods = [save: "POST", update: "PUT", delete: "DELETE"]
 
-    def index(Integer max) {
-        params.max = Math.min(max ?: 10, 100)
-        respond statisticsService.list(params), model:[statisticsCount: statisticsService.count()]
+    def index() {
+        def max = Math.min(params?.max ?: 10, 100)
+        def offset = params?.offset ?: 0
+        def sortBy = ['correct', 'wrong', 'total', 'averageTimeSeconds', 'totalTimeSeconds', 'fractionCorrect'].contains(params?.sortBy) ? params.sortBy : 'correct'
+        def orderBy = ['desc', 'asc'].contains(params?.orderBy) ? params.orderBy : 'desc'
+        def leaderBoard = Statistics.withCriteria(max: max, offset: offset){
+            order(sortBy, orderBy)
+        }
+        respond leaderBoard
     }
 
-    def show(Long id) {
-        respond statisticsService.get(id)
+    def show() {
+        respond springSecurityService.currentUser.statistics
     }
 
     @Secured(['ROLE_ADMIN'])
