@@ -29,7 +29,7 @@ To run unit tests: (just scaffolded tests for now)
 ./gradlew tasks test
 
 ```
-There is an included postman collection for testing.
+There is an included postman collection for testing at https://raw.githubusercontent.com/bmolz/mimir-grails/master/mimir-postman.json
 
 You can view the database data at <http://localhost:8080/dbconsole/> using JDBC URL:
 `jdbc:h2:file:./build/h2db` to Connect.
