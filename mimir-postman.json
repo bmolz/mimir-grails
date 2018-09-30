@@ -1,0 +1,325 @@
+{
+	"info": {
+		"_postman_id": "0594cdd6-fd92-4039-982a-7f35381c7ac3",
+		"name": "mimir",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "localhost:8080/login/auth",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+                "body": {
+                    "mode": "raw",
+                    "raw": ""
+                },
+				"url": {
+					"raw": "localhost:8080/login/auth/player",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login",
+						"auth",
+						"player"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/question",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/api/question?type=NORMAL",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"question"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "NORMAL"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/question",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/api/question?type=MAT",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"question"
+					],
+					"query": [
+						{
+							"key": "type",
+							"value": "MAT"
+						}
+					]
+				},
+				"description": "Request a new question"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/question/answer/$id",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/api/question/answer/58",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"question",
+						"answer",
+						"58"
+					]
+				},
+				"description": "Answer question, if id is not in /api/question choices will return 404"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/leaderboard",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/api/leaderboard",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"leaderboard"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/leaderboard?sortBy=wrong&orderBy=asc",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/api/leaderboard?sortBy=wrong&orderBy=asc",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"leaderboard"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "wrong"
+						},
+						{
+							"key": "orderBy",
+							"value": "asc"
+						}
+					]
+				},
+				"description": "sortBy = ['correct', 'wrong', 'total', 'averageTimeSeconds', 'totalTimeSeconds', 'fractionCorrect']\norderBy = ['desc', 'asc']"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/login/auth/admin",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"url": {
+					"raw": "localhost:8080/login/auth/admin",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login",
+						"auth",
+						"admin"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/import",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"url\":\"https://tinyurl.com/ybss7rrb\"\n}"
+				},
+				"url": {
+					"raw": "localhost:8080/api/import",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"import"
+					]
+				},
+				"description": "Must login as admin"
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/profile",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+                "body": {
+                    "mode": "raw",
+                    "raw": ""
+                },
+				"url": {
+					"raw": "localhost:8080/api/profile",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "localhost:8080/api/profile?search={name|job}",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+                "body": {
+                    "mode": "raw",
+                    "raw": ""
+                },
+				"url": {
+					"raw": "localhost:8080/api/profile?search=Engineer",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"profile"
+					],
+					"query": [
+						{
+							"key": "search",
+							"value": "Engineer"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
