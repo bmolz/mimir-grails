@@ -10,8 +10,11 @@ class ApiInterceptor {
     }
 
     boolean before() {
-        if(!springSecurityService.currentUser) springSecurityService.reauthenticate('player', 'player')
-        println springSecurityService.currentUser
+
+        if(!springSecurityService.currentUser) {
+            springSecurityService.reauthenticate('player', 'player')
+            false
+        }
         true
     }
 

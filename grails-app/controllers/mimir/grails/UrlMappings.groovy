@@ -4,17 +4,20 @@ class UrlMappings {
 
     static mappings = {
 
-        "/profile"(resources:'profile') {
+        "/$controller/$action?/$id?(.$format)?"{}
+
+        "/api/profile"(resources:'profile') {
             "/social"(resources:'socialLink')
             "/picture"(resources:'picture')
         }
 
-        "/question"(resource:'question') {
-            "/choices"(resources:'choices')
+        "/api/question"(resource:'question') {
+//            "/choices"(resources:'choices')
         }
 
-        "/statistics"(resource:'statistics')
-        "/import"(resource:'importProfilesURL')
+        "/api/statistics"(resource:'statistics')
+        "/api/import"(resource:'importProfilesURL')
+        "/login/auth/$id"(controller:'profile', action:'login', id:"$id")
 
         "/"(controller: 'application', action:'index')
         "500"(view: '/error')
