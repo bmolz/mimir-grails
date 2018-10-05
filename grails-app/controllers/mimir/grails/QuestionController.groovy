@@ -20,6 +20,8 @@ class QuestionController {
         def question = springSecurityService.currentUser?.question
         if (!question) {
             forward(action: 'save')
+        } else if(params?.type && question.type != params?.type) {
+            forward(action: 'save')
         } else {
             respond question, [status: OK]
         }
@@ -36,7 +38,11 @@ class QuestionController {
             attempts: 0
         ).save(flush: true, failOnError: true)
         Question question = springSecurityService.currentUser?.question
-        gameService.generateQuestion(question)
+        if(params?.test == 'true') {
+            gameService.generateQuestion(question, true)
+        } else {
+            gameService.generateQuestion(question)
+        }
         respond question, [status: CREATED, view: "show"]
 
     }
@@ -46,14 +52,15 @@ class QuestionController {
         Question question = springSecurityService.currentUser?.question
         if(question?.answer?.id?.toString() == params?.id ) {
             gameService.win(question, springSecurityService.currentUser)
-            def res = [message: true]
+            def res = [message: "correct"]
             render res as JSON
         } else if(question?.choices*.id.toString().contains(params?.id)){
             gameService.lose(question, springSecurityService.currentUser)
-            def res = [message: false]
+            def res = [message: "wrong"]
             render res as JSON
         } else {
-            render status: NOT_FOUND
+            def res = [message: "invalid"]
+            render res as JSON
         }
     }
 }

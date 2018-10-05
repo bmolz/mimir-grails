@@ -2,23 +2,24 @@ package mimir.grails
 
 import grails.gorm.transactions.Transactional
 import groovy.time.TimeCategory
-
-import java.util.concurrent.ThreadLocalRandom
+import java.util.Random
 
 @Transactional
 class GameService {
 
-    def generateQuestion(Question q) {
+    def generateQuestion(Question q, boolean test = false) {
+        Random rand = new Random()
+        if(test) rand = new Random(123456)
         def profiles = Profile.withCriteria(){
             if(q.type=='MAT') ilike('firstName', "%Mat%")
         }
         if(q?.choices) q.choices.clear()
-        def rAns = ThreadLocalRandom.current().nextInt(0, profiles.size)
+        def rAns = rand.nextInt((int) profiles.size)
         q.answer = profiles.get(rAns)
         def rChoices = [rAns] as Set
         def n = 0
         while (rChoices.size() < 6 && n < 100) {
-            rChoices << ThreadLocalRandom.current().nextInt(0, profiles.size)
+            rChoices << rand.nextInt((int) profiles.size)
             n++
         }
         rChoices.each{
