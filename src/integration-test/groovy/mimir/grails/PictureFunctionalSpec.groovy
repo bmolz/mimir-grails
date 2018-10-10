@@ -7,7 +7,9 @@ import static org.springframework.http.HttpStatus.*
 import spock.lang.*
 import geb.spock.*
 import grails.plugins.rest.client.RestBuilder
+import spock.lang.Ignore
 
+@Ignore
 @Integration
 @Rollback
 class PictureFunctionalSpec extends GebSpec {

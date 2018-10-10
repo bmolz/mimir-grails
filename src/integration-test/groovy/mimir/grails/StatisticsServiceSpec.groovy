@@ -5,6 +5,9 @@ import grails.gorm.transactions.Rollback
 import spock.lang.Specification
 import org.hibernate.SessionFactory
 
+import spock.lang.Ignore
+
+@Ignore
 @Integration
 @Rollback
 class StatisticsServiceSpec extends Specification {

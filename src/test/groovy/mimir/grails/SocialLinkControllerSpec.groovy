@@ -5,7 +5,9 @@ import static org.springframework.http.HttpStatus.*
 import grails.validation.ValidationException
 import grails.testing.web.controllers.ControllerUnitTest
 import grails.testing.gorm.DomainUnitTest
+import spock.lang.Ignore
 
+@Ignore
 class SocialLinkControllerSpec extends Specification implements ControllerUnitTest<SocialLinkController>, DomainUnitTest<SocialLink> {
 
     def populateValidParams(params) {
