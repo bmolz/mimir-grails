@@ -31,7 +31,6 @@ You can view the database data at <http://localhost:8080/dbconsole/> using JDBC 
 
 The api profiles are automatically consumed/imported on bootstrap or can be POST to /api/import.
 
-You can change users by navigating to /login/auth/{new username}
 
 #### [Relevant Endpoints](https://github.com/bmolz/mimir-grails/blob/master/grails-app/controllers/mimir/grails/UrlMappings.groovy)
 ```
@@ -40,7 +39,6 @@ You can change users by navigating to /login/auth/{new username}
 
 "/api/leaderboard" GET Top 10 user rankings, supports pagination and sort
 "/api/import" [admin] POST body: {url: "http://something_to_import"}
-"/login/auth/$id" POST id to authenticate as desired user
 
 Rest endpoints for accessing profiles with search/sort/paginate:
 "/api/profile/$id?search=Matt" GET

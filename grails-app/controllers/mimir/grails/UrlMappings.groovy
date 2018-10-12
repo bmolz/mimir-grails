@@ -17,7 +17,7 @@ class UrlMappings {
 
         "/api/leaderboard(.$format)?"(resources:'statistics')
         "/api/import"(resource:'importProfilesURL')
-        "/login/auth/$id"(controller:'profile', action:'login', id:"$id")
+//        "/login/auth/$id"(controller:'profile', action:'login', id:"$id")
 
         "/"(controller: 'application', action:'index')
         "500"(view: '/error')
