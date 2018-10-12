@@ -61,7 +61,7 @@ class ProfileController {
         }
         println "Logging in as ${user.username}"
         springSecurityService.reauthenticate(user.username, user.username)
-        def ret = [message: "Logging in as ${user.username} (resend request if intercepted)"]
+        def ret = [message: "Logging in as ${user.username}"]
         render ret as JSON
     }
 }

@@ -6,33 +6,32 @@ Requires Java to be installed, database is embedded h2.
 
 To start server:
 ```
-./gradlew tasks bootRun
+./gradlew bootRun
 ```
-There are .jar wrappers so no additional install is required.
-On windows replace with ./gradlew.bat
 
-When you see `Grails application running at http://localhost:8080 in environment: development
-` that will indicate the website is available
-
-The first http request to the webserver will be intercepted to authenticate as player using Spring Security. All subsequent requests should be valid.
+HTTP requests are intercepted to authenticate using Spring Security.
 
 Most of the relevant source code can be found in ./grails-app/ under the domain/, controllers/, services/, and views/ directories.
 
-The api profiles are automatically consumed/imported on bootstrap or can be POST to /api/import.
-
-You can change users by navigating to /login/auth/{new username}
-
-
 #### Testing
-To run unit tests: (just scaffolded tests for now)
+- Spock Framework with unit and integration tests
+- Unit tests added for profile and picture endpoints
+- Integration tests added for Game/Question/Statistics endpoints
 ```
-./gradlew tasks test
+./gradlew clean check
+open build/reports/tests/index.html
 
 ```
 There is an included postman collection for testing at https://raw.githubusercontent.com/bmolz/mimir-grails/master/mimir-postman.json
 
+Game Integration tests at https://github.com/bmolz/mimir-grails/blob/master/src/integration-test/groovy/mimir/grails/QuestionFunctionalSpec.groovy
+
 You can view the database data at <http://localhost:8080/dbconsole/> using JDBC URL:
 `jdbc:h2:file:./build/h2db` to Connect.
+
+The api profiles are automatically consumed/imported on bootstrap or can be POST to /api/import.
+
+You can change users by navigating to /login/auth/{new username}
 
 #### [Relevant Endpoints](https://github.com/bmolz/mimir-grails/blob/master/grails-app/controllers/mimir/grails/UrlMappings.groovy)
 ```
