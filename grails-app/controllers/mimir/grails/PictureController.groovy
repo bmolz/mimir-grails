@@ -11,10 +11,12 @@ class PictureController {
     PictureService pictureService
 
     def index() {
-        forward(action: "show", id: Picture.findByProfile(Profile.get(params.profileId)).id)
+        forward(action: "show", id: Profile.get(params.profileId).headshotId)
     }
 
     def show(Long id) {
-        respond pictureService.get(id)
+        def result =  Picture.get(id)
+        if(result) respond result
+        else render status: NOT_FOUND
     }
 }

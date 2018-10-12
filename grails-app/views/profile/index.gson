@@ -1,8 +1,16 @@
 import mimir.grails.Profile
 
 model {
-	Iterable<Profile> profileList
+    Iterable<Profile> profiles
+    Integer count
+    Integer max
+    Integer offset
 }
 
-json tmpl.profile(profileList ?: [])
+json {
+    count count
+    max max
+    offset offset
+    profiles tmpl.profile(profiles ?: [])
+}
 

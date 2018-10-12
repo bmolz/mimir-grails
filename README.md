@@ -44,7 +44,7 @@ You can view the database data at <http://localhost:8080/dbconsole/> using JDBC 
 "/login/auth/$id" POST id to authenticate as desired user
 
 Rest endpoints for accessing profiles with search/sort/paginate:
-"/api/profile/$id?search=Matt" GET, [admin] POST, UPDATE, DELETE
+"/api/profile/$id?search=Matt" GET
 "/api/profile/$id/social" GET
 "/api/profile/$id/picture" GET
 ```

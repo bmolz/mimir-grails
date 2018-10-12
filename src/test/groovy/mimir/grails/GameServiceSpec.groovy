@@ -2,7 +2,9 @@ package mimir.grails
 
 import grails.testing.services.ServiceUnitTest
 import spock.lang.Specification
+import spock.lang.Ignore
 
+@Ignore
 class GameServiceSpec extends Specification implements ServiceUnitTest<GameService>{
 
     def setup() {
